@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "284362466553",
+    "firebase_url": "https://checkgo-45ff3.firebaseio.com",
+    "project_id": "checkgo-45ff3",
+    "storage_bucket": "checkgo-45ff3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284362466553:android:2f9415cc966f8c6e3bee28",
+        "android_client_info": {
+          "package_name": "com.androidcourse.checkgoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284362466553-tkh6okhn0vtstnip38kg52m3a129boop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androidcourse.checkgoapp",
+            "certificate_hash": "dad56e1e3a245020aae964bff38dd8e9b28573ba"
+          }
+        },
+        {
+          "client_id": "284362466553-5oie0mt7fbrk3hbn7hblfo5mifmp639m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqQaGBpqFTEwd2IVvIazNxg25tM0BW_Fk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284362466553-5oie0mt7fbrk3hbn7hblfo5mifmp639m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
