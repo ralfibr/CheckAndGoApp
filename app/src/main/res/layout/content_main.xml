@@ -20,11 +20,12 @@
 
         <ImageView
             android:layout_width="493dp"
-            android:layout_height="199dp"
+            android:layout_height="182dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
             android:contentDescription=""
             android:src="@mipmap/ic_launcher"
+            app:srcCompat="@drawable/logo_size"
             tools:ignore="ContentDescription" />
 
 
@@ -70,7 +71,7 @@
             android:background="@null"
             android:text="@string/btn_forgot_password"
             android:textAllCaps="false"
-            android:textColor="#0C0C0C" />
+            android:textColor="#DF0808" />
 
         <!-- Link to Login Screen -->
 

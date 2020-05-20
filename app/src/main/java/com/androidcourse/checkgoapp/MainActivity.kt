@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
  * @author Raeef Ibrahim
  */
 class MainActivity : AppCompatActivity() {
-    private val mAuth: FirebaseAuth? = null
+
     private var inputEmail: EditText? = null
     private var inputPassword:EditText? = null
     private var btnSignup:Button? =null
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        //this.supportActionBar?.hide();
         inputEmail = findViewById(R.id.email) as EditText
         inputPassword = findViewById(R.id.password) as EditText
         btnSignup = findViewById(R.id.btn_signup) as Button
@@ -37,7 +37,7 @@ progressBar = findViewById(R.id.progressBar) as ProgressBar
         auth = FirebaseAuth.getInstance()
 
         btnSignup!!.setOnClickListener(View.OnClickListener {
-           // startActivity(Intent(this@LoginActivity,SingupActivity::class.java))
+         onSignup()
         })
         btnReset!!.setOnClickListener(View.OnClickListener {
            // startActivity(Intent(this@LoginActivity,ResetPasswordActivity::class.java))
@@ -95,6 +95,9 @@ progressBar = findViewById(R.id.progressBar) as ProgressBar
     }
     fun navigateToHome ( ){
         startActivity(Intent(this,Home::class.java))
+    }
+    fun onSignup() {
+        startActivity(Intent(this,SignUp::class.java))
     }
 
 }
