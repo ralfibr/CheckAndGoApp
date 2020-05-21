@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.androidcourse.checkgoapp.model.User
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
