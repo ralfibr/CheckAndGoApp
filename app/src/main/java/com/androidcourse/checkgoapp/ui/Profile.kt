@@ -1,18 +1,16 @@
-package com.androidcourse.checkgoapp
+package com.androidcourse.checkgoapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import com.androidcourse.checkgoapp.SignIn
+import com.androidcourse.checkgoapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.profile.*
-import kotlin.collections.List
 
 class Profile : AppCompatActivity() {
     private var auth : FirebaseAuth?= null
@@ -46,10 +44,10 @@ class Profile : AppCompatActivity() {
     fun signOut() {
         auth?.signOut()
         Toast.makeText(application,"You are logged out", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, SignIn::class.java))
     }
 fun navigetToList() {
-    startActivity(Intent(this, com.androidcourse.checkgoapp.List::class.java))
+    startActivity(Intent(this, List::class.java))
 }
     fun getProfile(): String {
 return auth?.currentUser?.email.toString()

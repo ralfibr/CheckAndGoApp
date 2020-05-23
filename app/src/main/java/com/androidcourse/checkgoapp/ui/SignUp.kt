@@ -1,4 +1,4 @@
-package com.androidcourse.checkgoapp
+package com.androidcourse.checkgoapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.androidcourse.checkgoapp.SignIn
+import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -82,7 +84,7 @@ class SignUp : AppCompatActivity() {
                     Toast.makeText(this,"User is crated",
                     Toast.LENGTH_SHORT).show()
                    progressBar!!.setVisibility(View.VISIBLE)
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, SignIn::class.java))
                         finish()
                     // else if successful
                     Log.d("Main", "Successfully created user with uid: ")

@@ -1,11 +1,11 @@
-package com.androidcourse.checkgoapp
+package com.androidcourse.checkgoapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.androidcourse.checkgoapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.profile.*
 
 class List : AppCompatActivity() {
 
@@ -33,6 +33,12 @@ class List : AppCompatActivity() {
     fun navigateToList() {
         startActivity(Intent(this, Profile::class.java))
 
+    }
+    private fun initViews() {
+//        floatingActionButton.setOnClickListener {
+//            startActivity(Intent(this, AddList::class.java))
+//
+//        }
     }
 
 }

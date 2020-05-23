@@ -48,7 +48,7 @@
             android:autofillHints=""
             android:hint="@string/hint_password"
             android:inputType="textPassword"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/widget_edittext_dark"
             android:textColorHint="@android:color/primary_text_light_nodisable" />
 
 
@@ -62,16 +62,6 @@
             android:background="@android:color/holo_red_dark"
             android:text="@string/btn_login"
             android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/btn_reset_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/btn_forgot_password"
-            android:textAllCaps="false"
-            android:textColor="#DF0808" />
 
         <!-- Link to Login Screen -->
 
