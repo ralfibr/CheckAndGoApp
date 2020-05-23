@@ -100,7 +100,7 @@ progressBar = findViewById(R.id.progressBar) as ProgressBar
         }
     }
     fun navigateToHome ( ){
-        startActivity(Intent(this,Home::class.java))
+        startActivity(Intent(this,List::class.java))
     }
     fun onSignup() {
         startActivity(Intent(this,SignUp::class.java))
@@ -110,7 +110,7 @@ progressBar = findViewById(R.id.progressBar) as ProgressBar
         if(auth?.currentUser == null){
             return
         }else{
-            val intent = Intent(this, Home::class.java)
+            val intent = Intent(this, List::class.java)
             startActivity(intent)
         }
     }
