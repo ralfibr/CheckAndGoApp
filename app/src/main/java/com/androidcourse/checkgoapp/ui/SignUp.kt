@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.androidcourse.checkgoapp.SignIn
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.User
 import com.google.firebase.auth.FirebaseAuth

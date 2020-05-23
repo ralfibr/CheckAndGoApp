@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import com.androidcourse.checkgoapp.SignIn
 
 /**
  * Splash screen with 2500 seconds
