@@ -19,7 +19,7 @@ class Splash : AppCompatActivity() {
             startActivity(
                 Intent(
                     this,
-                    SignIn::class.java
+                    MainAcitivity::class.java
                 )
             ) // finish and remove from back stack
             finish()

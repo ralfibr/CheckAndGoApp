@@ -26,24 +26,24 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="339dp"
+        android:layout_marginStart="2dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="13dp"
         android:clickable="true"
         android:tint="#EFEAEA"
         app:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemEdit"
         app:srcCompat="@android:drawable/ic_menu_add"
         tools:ignore="UnknownId" />
 
     <EditText
-        android:id="@+id/item_edittext"
+        android:id="@+id/itemEdit"
         android:layout_width="337dp"
         android:layout_height="48dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="13dp"
         android:ems="10"
         android:hint="Add item to your checklist"
         android:inputType="textPersonName"
@@ -53,13 +53,28 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItems"
-        android:layout_width="406dp"
-        android:layout_height="523dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="1dp"
+        android:layout_width="398dp"
+        android:layout_height="487dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="178dp"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.118" />
+
+    <ImageView
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="354dp"
+        android:layout_marginEnd="26dp"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,7 +43,7 @@ class Profile : AppCompatActivity() {
     fun signOut() {
         auth?.signOut()
         Toast.makeText(application,"You are logged out", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this, SignIn::class.java))
+        startActivity(Intent(this, MainAcitivity::class.java))
     }
 fun navigetToList() {
     startActivity(Intent(this, List::class.java))

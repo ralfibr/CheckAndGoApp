@@ -1,9 +1,6 @@
 package com.androidcourse.checkgoapp.ui
-
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.androidcourse.checkgoapp.R
 import android.content.Intent
+import android.os.Bundle
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
@@ -12,15 +9,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.androidcourse.checkgoapp.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import kotlin.collections.List
 
 
 /**
  * @author Raeef Ibrahim
  */
-class SignIn : AppCompatActivity() {
+class MainAcitivity : AppCompatActivity() {
 
     private var inputEmail: EditText? = null
     private var inputPassword: EditText? = null

@@ -25,7 +25,6 @@ class SignUp : AppCompatActivity() {
     private var progressBar: ProgressBar? = null
     private var inputName: EditText? = null
     private var auth : FirebaseAuth?= null
-
     private lateinit var database: DatabaseReference
 
 
@@ -83,7 +82,7 @@ class SignUp : AppCompatActivity() {
                     Toast.makeText(this,"User is crated",
                     Toast.LENGTH_SHORT).show()
                    progressBar!!.setVisibility(View.VISIBLE)
-                    startActivity(Intent(this, SignIn::class.java))
+                    startActivity(Intent(this, MainAcitivity::class.java))
                         finish()
                     // else if successful
                     Log.d("Main", "Successfully created user with uid: ")

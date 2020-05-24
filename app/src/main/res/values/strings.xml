@@ -45,4 +45,5 @@
     <string name="title_notifications">Profile</string>
     <string name="username">Email: %s</string>
     <string name="emailPro">Email: %s</string>
+    <string name="title_activity_check_list">CheckList</string>
 </resources>
