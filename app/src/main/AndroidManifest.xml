@@ -13,10 +13,17 @@
         tools:ignore="ExtraText">
         <activity android:name=".ui.Profile" />
         <activity android:name=".ui.SignUp" />
-        <activity android:name=".ui.List" />
         <activity android:name=".ui.SignIn" >
         </activity>
         <activity android:name=".ui.Splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.List" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

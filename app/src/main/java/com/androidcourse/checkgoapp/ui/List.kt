@@ -3,10 +3,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -17,6 +15,7 @@ import com.androidcourse.checkgoapp.adapter.ItemAdapter
 import com.androidcourse.checkgoapp.database.ItemRepository
 import com.androidcourse.checkgoapp.model.Item
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,59 +27,74 @@ private lateinit var itemRepository: ItemRepository
 private val mainScope = CoroutineScope(Dispatchers.Main)
 private var inputItem: EditText? = null
 
+
+
 class List : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
         supportActionBar?.title = "Your checklist"
-initViews()
+        initViews()
+
         itemRepository = ItemRepository(this)
 
-inputItem= findViewById(R.id.itemEdit)
+        inputItem = findViewById(R.id.itemEdit)
         deleteBtn.setOnClickListener(View.OnClickListener { deleteCheckList() })
         val navigationView = findViewById(R.id.bottom_nav) as BottomNavigationView
         navigationView.setOnNavigationItemSelectedListener() { item ->
             when (item.itemId) {
-                R.id.navigation_list ->
-                {Toast.makeText(application,"clickked",Toast.LENGTH_SHORT).show()
-              }
+                R.id.navigation_list -> {
+                    Toast.makeText(application, "clickked", Toast.LENGTH_SHORT).show()
+                }
                 R.id.navigation_chat ->
-                    Toast.makeText(application,"clickked chat",Toast.LENGTH_SHORT).show()
-                R.id.navigation_profile ->
-                {
-                    navigateToList() }
+                    Toast.makeText(application, "clickked chat", Toast.LENGTH_SHORT).show()
+                R.id.navigation_profile -> {
+                    navigateToList()
+                }
             }
             true
 
         }
     }
+
     private fun initViews() {
         rvItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvItems.adapter = itemAdapter
         rvItems.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         createItemTouchHelper().attachToRecyclerView(rvItems)
-       getCheckListFromDatabase()
+        getCheckListFromDatabase()
         floatingActionButton.setOnClickListener { addItem() }
     }
     fun navigateToList() {
         startActivity(Intent(this, Profile::class.java))
 
     }
-}
-private fun addItem() {
-    mainScope.launch {
+
+    private fun addItem() {
         val itemName = inputItem!!.text.toString().trim()
-        Log.d("MainActivity", itemName)
-        val item = Item(name = itemName)
-        withContext(Dispatchers.IO) {
-            itemRepository.insertItem(item)
+        if (itemName.isEmpty()){
+            Toast.makeText(
+                this, "Item cannot be empty",
+                Toast.LENGTH_LONG
+            ).show()
+            return
         }
 
-        getCheckListFromDatabase()
+        mainScope.launch {
+            Log.d("MainActivity", itemName)
+            val item = Item(name = itemName)
+            withContext(Dispatchers.IO) {
+                itemRepository.insertItem(item)
+            }
+
+            getCheckListFromDatabase()
+           inputItem!!.setText("")
+        }
+
     }
 
-}
 
     private fun createItemTouchHelper(): ItemTouchHelper {
 
@@ -102,19 +116,19 @@ private fun addItem() {
                     withContext(Dispatchers.IO) {
                         itemRepository.deleteItem(itemToDelete)
                     }
-                   getCheckListFromDatabase()
+                    getCheckListFromDatabase()
                 }
             }
         }
         return ItemTouchHelper(callback)
     }
 
-// add product to the database
+    // add product to the database
     private fun getCheckListFromDatabase() {
         mainScope.launch {
             // call product repository
             val chcekList = withContext(Dispatchers.IO) {
-               itemRepository.getAllItems()
+                itemRepository.getAllItems()
             }
             checkList.clear()
             checkList.addAll(chcekList)
@@ -122,13 +136,21 @@ private fun addItem() {
         }
     }
 
+
     private fun deleteCheckList() {
         mainScope.launch {
             withContext(Dispatchers.IO) {
-              itemRepository.deleteAllItems()
+                itemRepository.deleteAllItems()
             }
             getCheckListFromDatabase()
+            Snackbar.make(
+                rvItems
+                , // Parent view
+                "All items is deleted", // Message to show
+                Snackbar.LENGTH_SHORT // How long to display the message.
+            ).show()
         }
     }
 
 
+}
