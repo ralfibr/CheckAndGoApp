@@ -32,7 +32,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.SignUp">
+            tools:context=".auth.SignUp">
 
             <LinearLayout
                 android:layout_width="409dp"

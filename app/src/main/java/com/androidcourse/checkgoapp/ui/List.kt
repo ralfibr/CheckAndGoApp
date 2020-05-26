@@ -1,11 +1,14 @@
 package com.androidcourse.checkgoapp.ui
+
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,29 +19,39 @@ import com.androidcourse.checkgoapp.database.ItemRepository
 import com.androidcourse.checkgoapp.model.Item
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+
 private val checkList = arrayListOf<Item>()
 private val itemAdapter = ItemAdapter(checkList)
 private lateinit var itemRepository: ItemRepository
 private val mainScope = CoroutineScope(Dispatchers.Main)
 private var inputItem: EditText? = null
 
-
+private lateinit var database: DatabaseReference
 
 class List : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
-
+        database = Firebase.database.reference
         supportActionBar?.title = "Your checklist"
         initViews()
-
         itemRepository = ItemRepository(this)
+checkArray()
+
 
         inputItem = findViewById(R.id.itemEdit)
         deleteBtn.setOnClickListener(View.OnClickListener { deleteCheckList() })
@@ -57,6 +70,27 @@ class List : AppCompatActivity() {
             true
 
         }
+//        database.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                val item =
+//                    dataSnapshot.getValue<Item>()
+//              //  Log.d(FragmentActivity.TAG, "Value is: $value")
+//                item?.let {
+//
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                // Failed to read value
+////                Log.w(
+////                    FragmentActivity.TAG,
+////                    "Failed to read value.",
+////                    error.toException()
+////                )
+//            }
+//        })
     }
 
     private fun initViews() {
@@ -71,14 +105,20 @@ class List : AppCompatActivity() {
         startActivity(Intent(this, Profile::class.java))
 
     }
-
+fun checkArray() {
+    if (checkList.isEmpty()){
+        hint.setVisibility(View.INVISIBLE)
+    }
+}
     private fun addItem() {
         val itemName = inputItem!!.text.toString().trim()
+        hint.setVisibility(View.VISIBLE)
         if (itemName.isEmpty()){
             Toast.makeText(
                 this, "Item cannot be empty",
                 Toast.LENGTH_LONG
             ).show()
+
             return
         }
 
@@ -90,6 +130,7 @@ class List : AppCompatActivity() {
             }
 
             getCheckListFromDatabase()
+            writeNewItemToFirebase(inputItem!!.text.toString().trim())
            inputItem!!.setText("")
         }
 
@@ -116,6 +157,13 @@ class List : AppCompatActivity() {
                     withContext(Dispatchers.IO) {
                         itemRepository.deleteItem(itemToDelete)
                     }
+                    Snackbar.make(
+                        rvItems
+                        , // Parent view
+                        itemToDelete.name+" is ready and is deleted ", // Message to show
+                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    ).show()
+
                     getCheckListFromDatabase()
                 }
             }
@@ -149,8 +197,15 @@ class List : AppCompatActivity() {
                 "All items is deleted", // Message to show
                 Snackbar.LENGTH_SHORT // How long to display the message.
             ).show()
+
+                hint.setVisibility(View.INVISIBLE)
         }
     }
+    private fun writeNewItemToFirebase( name: String) {
+        val item = Item(1,name)
+        database.child("Items").child(name).setValue(item)
 
+
+    }
 
 }

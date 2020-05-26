@@ -1,4 +1,4 @@
-package com.androidcourse.checkgoapp.ui
+package com.androidcourse.checkgoapp.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.User
+import com.androidcourse.checkgoapp.ui.MainAcitivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
