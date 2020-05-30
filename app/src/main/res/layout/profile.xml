@@ -27,7 +27,7 @@
             android:layout_marginTop="26dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="81dp"
-            android:text="@string/emailPro"
+            android:text="@string/username"
             android:textColor="#070707"
             android:textSize="18sp"
             android:textStyle="italic"
@@ -35,6 +35,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="380dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="19dp"
+            android:text="@string/uName"
+            android:textColor="#070707"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -62,7 +76,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu" />
 
     <TextView
         android:id="@+id/textView2"

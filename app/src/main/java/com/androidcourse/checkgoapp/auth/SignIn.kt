@@ -1,7 +1,9 @@
-package com.androidcourse.checkgoapp.ui
+package com.androidcourse.checkgoapp.auth
+
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,15 +13,23 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.androidcourse.checkgoapp.R
-import com.androidcourse.checkgoapp.auth.SignUp
+import com.androidcourse.checkgoapp.model.Item
+import com.androidcourse.checkgoapp.ui.List
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 
 
 /**
  * @author Raeef Ibrahim
  */
-class MainAcitivity : AppCompatActivity() {
+class SignIn : AppCompatActivity() {
 
     private var inputEmail: EditText? = null
     private var inputPassword: EditText? = null
@@ -28,10 +38,11 @@ class MainAcitivity : AppCompatActivity() {
     private var btnReset: Button? = null
     private var progressBar: ProgressBar? = null
     private var auth: FirebaseAuth? = null
+    private lateinit var myRef: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+myRef = Firebase.database.reference
 
         //this.supportActionBar?.hide();
         inputEmail = findViewById(R.id.email) as EditText
@@ -100,7 +111,23 @@ class MainAcitivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+fun getDataFromFireBase(){
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            // This method is called once with the initial value and again
+            // whenever data at this location is updated.
+            val name =
+                dataSnapshot.getValue<Item>()
+            Log.d(this@SignIn.toString(), "Value is: $name")
+        }
 
+        override fun onCancelled(error: DatabaseError) {
+            // Failed to read value
+            Log.w(this@SignIn.toString(), "Failed to read value.", error.toException())
+        }
+    })
+
+}
     fun navigateToHome() {
         startActivity(Intent(this, List::class.java))
     }

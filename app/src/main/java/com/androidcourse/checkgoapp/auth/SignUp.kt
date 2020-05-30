@@ -11,7 +11,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.User
-import com.androidcourse.checkgoapp.ui.MainAcitivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -83,7 +82,7 @@ class SignUp : AppCompatActivity() {
                     Toast.makeText(this,"User is crated",
                     Toast.LENGTH_SHORT).show()
                    progressBar!!.setVisibility(View.VISIBLE)
-                    startActivity(Intent(this, MainAcitivity::class.java))
+                    startActivity(Intent(this, SignIn::class.java))
                         finish()
                     // else if successful
                     Log.d("Main", "Successfully created user with uid: ")
@@ -99,7 +98,8 @@ class SignUp : AppCompatActivity() {
 
     private fun writeNewUser( name: String, email: String?) {
         val user = User(name, email)
-        database.child("users").child(name).setValue(user)
+            database.child("users").child(name).setValue(user)
+
 
     }
 

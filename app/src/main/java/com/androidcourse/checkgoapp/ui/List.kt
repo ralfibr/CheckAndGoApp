@@ -1,8 +1,10 @@
 package com.androidcourse.checkgoapp.ui
-
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -17,41 +19,46 @@ import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.adapter.ItemAdapter
 import com.androidcourse.checkgoapp.database.ItemRepository
 import com.androidcourse.checkgoapp.model.Item
+import com.androidcourse.checkgoapp.model.ItemFirebase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_list.*
+import kotlinx.android.synthetic.main.item_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+private var auth : FirebaseAuth?= null
 private val checkList = arrayListOf<Item>()
 private val itemAdapter = ItemAdapter(checkList)
 private lateinit var itemRepository: ItemRepository
 private val mainScope = CoroutineScope(Dispatchers.Main)
 private var inputItem: EditText? = null
-
 private lateinit var database: DatabaseReference
+
 
 class List : AppCompatActivity() {
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
         database = Firebase.database.reference
         supportActionBar?.title = "Your checklist"
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_info)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initViews()
+        hint.setVisibility(View.INVISIBLE)
+        auth = FirebaseAuth.getInstance()
         itemRepository = ItemRepository(this)
-checkArray()
-
+getDataFromFireBase()
+        database = FirebaseDatabase.getInstance().getReference("/Items")
 
         inputItem = findViewById(R.id.itemEdit)
         deleteBtn.setOnClickListener(View.OnClickListener { deleteCheckList() })
@@ -70,29 +77,38 @@ checkArray()
             true
 
         }
-//        database.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                val item =
-//                    dataSnapshot.getValue<Item>()
-//              //  Log.d(FragmentActivity.TAG, "Value is: $value")
-//                item?.let {
-//
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // Failed to read value
-////                Log.w(
-////                    FragmentActivity.TAG,
-////                    "Failed to read value.",
-////                    error.toException()
-////                )
-//            }
-//        })
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.drawable.ic_action_delete -> {
+               deleteCheckList()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+    fun getDataFromFireBase(){
+        database.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
 
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                p0.children.forEach {
+//                    val item = it.getValue(ItemFirebase::class.java)
+//
+//                    if (item != null) {
+//                       // tvItem?.text = item?.item
+//                        Log.d("test", item.item)
+//                    }
+//                    return
+                }
+            }
+
+        })
+
+    }
     private fun initViews() {
         rvItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvItems.adapter = itemAdapter
@@ -103,16 +119,10 @@ checkArray()
     }
     fun navigateToList() {
         startActivity(Intent(this, Profile::class.java))
-
     }
-fun checkArray() {
-    if (checkList.isEmpty()){
-        hint.setVisibility(View.INVISIBLE)
-    }
-}
     private fun addItem() {
         val itemName = inputItem!!.text.toString().trim()
-        hint.setVisibility(View.VISIBLE)
+       // hint.setVisibility(View.VISIBLE)
         if (itemName.isEmpty()){
             Toast.makeText(
                 this, "Item cannot be empty",
@@ -120,6 +130,7 @@ fun checkArray() {
             ).show()
 
             return
+
         }
 
         mainScope.launch {
@@ -130,16 +141,15 @@ fun checkArray() {
             }
 
             getCheckListFromDatabase()
+            getDataFromFireBase()
             writeNewItemToFirebase(inputItem!!.text.toString().trim())
            inputItem!!.setText("")
         }
 
     }
-
-
     private fun createItemTouchHelper(): ItemTouchHelper {
 
-        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
             // Enables or Disables the ability to move items up and down.
             override fun onMove(
@@ -151,21 +161,33 @@ fun checkArray() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                itemAdapter.notifyItemChanged(viewHolder.adapterPosition)
                 val position = viewHolder.adapterPosition
-                val itemToDelete = checkList[position]
-                mainScope.launch {
-                    withContext(Dispatchers.IO) {
-                        itemRepository.deleteItem(itemToDelete)
-                    }
-                    Snackbar.make(
-                        rvItems
-                        , // Parent view
-                        itemToDelete.name+" is ready and is deleted ", // Message to show
-                        Snackbar.LENGTH_SHORT // How long to display the message.
-                    ).show()
 
-                    getCheckListFromDatabase()
+
+                if (direction == ItemTouchHelper.RIGHT ){
+                    Snackbar.make(rvItems, "Item is on ready state", Snackbar.LENGTH_SHORT).show()
+
+                } else {
+                    val position = viewHolder.adapterPosition
+                    val itemToDelete = checkList[position]
+                    mainScope.launch {
+                        withContext(Dispatchers.IO) {
+                            database.child("Items").child(auth?.currentUser?.uid.toString())
+                                .child(itemToDelete.name).removeValue()
+                            itemRepository.deleteItem(itemToDelete)
+                        }
+                        Snackbar.make(
+                            rvItems
+                            , // Parent view
+                            itemToDelete.name + " is ready and is deleted ", // Message to show
+                            Snackbar.LENGTH_SHORT // How long to display the message.
+                        ).show()
+
+                        getCheckListFromDatabase()
+                    }
                 }
+                return
             }
         }
         return ItemTouchHelper(callback)
@@ -183,12 +205,12 @@ fun checkArray() {
             itemAdapter.notifyDataSetChanged()
         }
     }
-
-
     private fun deleteCheckList() {
         mainScope.launch {
             withContext(Dispatchers.IO) {
                 itemRepository.deleteAllItems()
+                database.child(auth?.currentUser?.uid.toString()+"/").removeValue()
+
             }
             getCheckListFromDatabase()
             Snackbar.make(
@@ -202,10 +224,9 @@ fun checkArray() {
         }
     }
     private fun writeNewItemToFirebase( name: String) {
-        val item = Item(1,name)
-        database.child("Items").child(name).setValue(item)
-
+        database.child(auth?.currentUser?.uid.toString()+"/"+name).setValue(name)
 
     }
+
 
 }
