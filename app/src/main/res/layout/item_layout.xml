@@ -7,17 +7,29 @@
 
     <TextView
         android:id="@+id/tvItem"
-        android:layout_width="250dp"
-        android:layout_height="59dp"
+        android:layout_width="277dp"
+        android:layout_height="75dp"
         android:background="@drawable/share_rounded_corner_with_border"
-        android:backgroundTint="#C1BFC5"
+        android:backgroundTint="@color/colorPrimary"
         android:gravity="center_horizontal"
         android:text="hallo"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#DAD5D5"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvItem" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

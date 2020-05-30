@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.androidcourse.checkgoapp.auth.SignIn
 
 /**
  * Splash screen with 2500 seconds
@@ -19,7 +20,7 @@ class Splash : AppCompatActivity() {
             startActivity(
                 Intent(
                     this,
-                    MainAcitivity::class.java
+                    SignIn::class.java
                 )
             ) // finish and remove from back stack
             finish()
