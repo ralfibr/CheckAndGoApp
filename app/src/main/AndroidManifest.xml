@@ -14,7 +14,7 @@
         <activity android:name=".ui.Profile" />
         <activity android:name=".auth.SignUp" />
         <activity android:name=".auth.SignIn"/>
-        <activity android:name=".ui.List"/>
+        <activity android:name=".ui.List.List"/>
         <activity android:name=".ui.Splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

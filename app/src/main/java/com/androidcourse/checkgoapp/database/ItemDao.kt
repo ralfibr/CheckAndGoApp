@@ -1,4 +1,5 @@
 package com.androidcourse.checkgoapp.database
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.androidcourse.checkgoapp.model.Item
 
@@ -6,10 +7,10 @@ import com.androidcourse.checkgoapp.model.Item
 interface ItemDao {
 
     @Query("SELECT * FROM item_table")
-    suspend fun getAllItems(): List<Item>
+     fun getAllItems(): LiveData<List<Item>>
 
     @Insert
-    suspend fun insertItem(item: Item)
+     fun insertItem(item: Item)
 
     @Delete
     suspend fun deleteItem(item: Item)

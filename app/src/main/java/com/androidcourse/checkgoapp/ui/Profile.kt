@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.auth.SignIn
 import com.androidcourse.checkgoapp.model.User
+import com.androidcourse.checkgoapp.ui.List.List
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*

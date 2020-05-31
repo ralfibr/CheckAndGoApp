@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.Item
-import com.androidcourse.checkgoapp.ui.List
+import com.androidcourse.checkgoapp.ui.List.List
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
