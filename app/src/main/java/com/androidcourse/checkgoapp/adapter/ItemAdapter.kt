@@ -2,11 +2,14 @@ package com.androidcourse.checkgoapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.Item
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.item_layout.*
 import kotlinx.android.synthetic.main.item_layout.view.*
+import kotlinx.android.synthetic.main.item_layout.view.checkBox
 
 
 class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {

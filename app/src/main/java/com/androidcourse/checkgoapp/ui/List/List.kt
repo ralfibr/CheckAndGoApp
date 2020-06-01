@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ import kotlinx.coroutines.withContext
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.androidcourse.checkgoapp.ui.Profile
+import kotlinx.android.synthetic.main.item_layout.*
 
 
 class List : AppCompatActivity() {
@@ -39,6 +41,7 @@ class List : AppCompatActivity() {
     private var inputItem: EditText? = null
     private lateinit var database: DatabaseReference
     private val viewModel: ListActivityModel by viewModels()
+    private var checkbox1: CheckBox? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +50,11 @@ class List : AppCompatActivity() {
         supportActionBar?.title = "Your checklist"
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_info)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        checkbox1 = findViewById(R.id.checkBox)
         observeViewModel()
         initViews()
-        hint.setVisibility(View.INVISIBLE)
+        hint.visibility = View.INVISIBLE
         auth = FirebaseAuth.getInstance()
-
         database = FirebaseDatabase.getInstance().getReference("/Items")
         inputItem = findViewById(R.id.itemEdit)
         deleteBtn.setOnClickListener(View.OnClickListener { deleteCheckList() })

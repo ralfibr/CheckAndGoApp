@@ -46,5 +46,6 @@
     <string name="username">Email: %s</string>
     <string name="uName">Username: %s</string>
     <string name="title_activity_check_list">CheckList</string>
+    <string name="itemd"></string>
 
 </resources>

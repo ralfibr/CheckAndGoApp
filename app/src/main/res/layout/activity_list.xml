@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:foregroundTint="@android:color/white"
     tools:context=".ui.List.List">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,7 +30,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="13dp"
         android:clickable="true"
-        android:tint="#EFEAEA"
+        android:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,8 +40,9 @@
 
     <EditText
         android:id="@+id/itemEdit"
-        android:layout_width="337dp"
-        android:layout_height="48dp"
+        android:layout_width="304dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="13dp"
         android:ems="10"
@@ -70,8 +72,8 @@
         android:id="@+id/deleteBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="354dp"
-        android:layout_marginEnd="26dp"
+        android:layout_marginStart="342dp"
+        android:layout_marginEnd="37dp"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
