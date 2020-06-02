@@ -31,6 +31,7 @@ import kotlinx.coroutines.withContext
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import com.androidcourse.checkgoapp.ui.Chat.Chat
 import com.androidcourse.checkgoapp.ui.Profile
 import kotlinx.android.synthetic.main.item_layout.*
 
@@ -94,7 +95,7 @@ class List : AppCompatActivity() {
                 R.id.navigation_list -> {
                 }
                 R.id.navigation_chat ->
-                    Toast.makeText(application, "clickked chat", Toast.LENGTH_SHORT).show()
+                    navigateToChat()
                 R.id.navigation_profile -> {
                     navigateToProfile()
                 }
@@ -158,6 +159,9 @@ class List : AppCompatActivity() {
     }
     fun navigateBack() {
         startActivity(Intent(this, List::class.java))
+    }
+    fun navigateToChat() {
+        startActivity(Intent(this, Chat::class.java))
     }
     private fun addItem() {
         val itemName = inputItem!!.text.toString().trim()

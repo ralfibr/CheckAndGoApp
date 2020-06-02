@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.auth.SignIn
 import com.androidcourse.checkgoapp.model.User
+import com.androidcourse.checkgoapp.ui.Chat.Chat
 import com.androidcourse.checkgoapp.ui.List.List
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -45,7 +46,7 @@ class Profile : AppCompatActivity() {
                     navigetToList()
                 }
                 R.id.navigation_chat ->
-                    Toast.makeText(application,"clickked chat", Toast.LENGTH_SHORT).show()
+                    navigateToChat()
             }
             true
 
@@ -87,5 +88,8 @@ fun navigetToList() {
     fun getProfile(): String {
 return auth?.currentUser?.email.toString()
 
+    }
+    fun navigateToChat() {
+        startActivity(Intent(this, Chat::class.java))
     }
 }

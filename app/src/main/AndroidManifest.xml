@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.androidcourse.checkgoapp" >
+    package="com.androidcourse.checkgoapp">
 
     <application
         android:allowBackup="true"
@@ -11,16 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="ExtraText">
+        <activity android:name=".ui.Chat.Chat"></activity>
         <activity android:name=".ui.Profile" />
         <activity android:name=".auth.SignUp" />
-        <activity android:name=".auth.SignIn"/>
-        <activity android:name=".ui.List.List"/>
-        <activity android:name=".ui.Splash" >
+        <activity android:name=".auth.SignIn" />
+        <activity android:name=".ui.List.List" />
+        <activity android:name=".ui.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
+
 </manifest>
