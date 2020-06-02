@@ -43,7 +43,7 @@ class SignIn : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 myRef = Firebase.database.reference
-
+        this.supportActionBar?.hide();
         //this.supportActionBar?.hide();
         inputEmail = findViewById(R.id.email) as EditText
         inputPassword = findViewById(R.id.password) as EditText
@@ -111,23 +111,7 @@ myRef = Firebase.database.reference
             else -> super.onOptionsItemSelected(item)
         }
     }
-fun getDataFromFireBase(){
-    myRef.addValueEventListener(object : ValueEventListener {
-        override fun onDataChange(dataSnapshot: DataSnapshot) {
-            // This method is called once with the initial value and again
-            // whenever data at this location is updated.
-            val name =
-                dataSnapshot.getValue<Item>()
-            Log.d(this@SignIn.toString(), "Value is: $name")
-        }
 
-        override fun onCancelled(error: DatabaseError) {
-            // Failed to read value
-            Log.w(this@SignIn.toString(), "Failed to read value.", error.toException())
-        }
-    })
-
-}
     fun navigateToHome() {
         startActivity(Intent(this, List::class.java))
     }

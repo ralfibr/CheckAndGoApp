@@ -35,10 +35,9 @@
             tools:context=".auth.SignUp">
 
             <LinearLayout
-                android:layout_width="409dp"
-                android:layout_height="729dp"
+                android:layout_width="406dp"
+                android:layout_height="719dp"
                 android:layout_marginStart="1dp"
-                android:layout_marginTop="1dp"
                 android:layout_marginEnd="1dp"
                 android:layout_marginBottom="1dp"
                 android:background="#FDFCFC"

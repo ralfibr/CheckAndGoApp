@@ -13,8 +13,16 @@ import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+import java.util.*
+
+
 
 class SignUp : AppCompatActivity() {
     private var inputEmail: EditText? = null
@@ -26,6 +34,10 @@ class SignUp : AppCompatActivity() {
     private var inputName: EditText? = null
     private var auth : FirebaseAuth?= null
     private lateinit var database: DatabaseReference
+    val randomValues1 = Random(10)
+
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +60,7 @@ class SignUp : AppCompatActivity() {
             finish()
         })
         btnSignUp!!.setOnClickListener(View.OnClickListener {
-
+            database = FirebaseDatabase.getInstance().getReference("/users")
             val email = inputEmail!!.text.toString().trim()
             val password = inputPassword!!.text.toString().trim()
             val username = inputName!!.text.toString().trim()
@@ -79,10 +91,11 @@ class SignUp : AppCompatActivity() {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (!it.isSuccessful) return@addOnCompleteListener
-                    Toast.makeText(this,"User is crated",
+                    Toast.makeText(this,"User " + username.toString()+"is crated",
                     Toast.LENGTH_SHORT).show()
                    progressBar!!.setVisibility(View.VISIBLE)
                     startActivity(Intent(this, SignIn::class.java))
+                    writeNewUser(username,email)
                         finish()
                     // else if successful
                     Log.d("Main", "Successfully created user with uid: ")
@@ -91,14 +104,17 @@ class SignUp : AppCompatActivity() {
                     Log.d("Main", "Failed to create user: ${it.message}")
                     Toast.makeText(this, "Failed to create user: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
-            writeNewUser(username,email)
+            CoroutineScope(Dispatchers.Main).launch {
+
+            }
+
         })
 
     }
 
     private fun writeNewUser( name: String, email: String?) {
         val user = User(name, email)
-            database.child("users").child(name).setValue(user)
+        database.child(auth?.currentUser?.uid.toString() + "/" ).setValue(user)
 
 
     }

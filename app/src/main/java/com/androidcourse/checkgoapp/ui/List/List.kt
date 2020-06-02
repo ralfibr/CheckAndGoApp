@@ -1,4 +1,6 @@
 package com.androidcourse.checkgoapp.ui.List
+import android.app.ListActivity
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +29,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.androidcourse.checkgoapp.ui.Profile
 import kotlinx.android.synthetic.main.item_layout.*
@@ -46,6 +49,7 @@ class List : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
+
         database = Firebase.database.reference
         supportActionBar?.title = "Your checklist"
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_info)
@@ -53,21 +57,46 @@ class List : AppCompatActivity() {
         checkbox1 = findViewById(R.id.checkBox)
         observeViewModel()
         initViews()
-        hint.visibility = View.INVISIBLE
+
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().getReference("/Items")
         inputItem = findViewById(R.id.itemEdit)
-        deleteBtn.setOnClickListener(View.OnClickListener { deleteCheckList() })
+        deleteBtn.setOnClickListener(View.OnClickListener {
+
+
+            val dialogBuilder = AlertDialog.Builder(this)
+
+            // set message of alert dialog
+            dialogBuilder.setMessage("Are yo sure to delete your checklist ?")
+                // if the dialog is cancelable
+                .setCancelable(false)
+                // positive button text and action
+                .setPositiveButton("Yes", DialogInterface.OnClickListener {
+                        dialog, id ->
+                    deleteCheckList()
+                    finish()
+                    navigateBack()
+                })
+                // negative button text and action
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                        dialog, id -> dialog.cancel()
+                })
+
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle("Delete all items")
+            // show alert dialog
+            alert.show()})
         val navigationView = findViewById(R.id.bottom_nav) as BottomNavigationView
         navigationView.setOnNavigationItemSelectedListener() { item ->
             when (item.itemId) {
                 R.id.navigation_list -> {
-                    Toast.makeText(application, "clickked", Toast.LENGTH_SHORT).show()
                 }
                 R.id.navigation_chat ->
                     Toast.makeText(application, "clickked chat", Toast.LENGTH_SHORT).show()
                 R.id.navigation_profile -> {
-                    navigateToList()
+                    navigateToProfile()
                 }
             }
             true
@@ -124,10 +153,12 @@ class List : AppCompatActivity() {
         floatingActionButton.setOnClickListener { addItem() }
     }
 
-    fun navigateToList() {
+    fun navigateToProfile() {
         startActivity(Intent(this, Profile::class.java))
     }
-
+    fun navigateBack() {
+        startActivity(Intent(this, List::class.java))
+    }
     private fun addItem() {
         val itemName = inputItem!!.text.toString().trim()
         // hint.setVisibility(View.VISIBLE)
@@ -176,12 +207,11 @@ class List : AppCompatActivity() {
                 } else {
                     val position = viewHolder.adapterPosition
                     val itemToDelete = checkList[position]
-                    mainScope.launch {
-                        withContext(Dispatchers.IO) {
-                            database.child("Items").child(auth?.currentUser?.uid.toString())
+
+                            database.child(auth?.currentUser?.uid.toString())
                                 .child(itemToDelete.name).removeValue()
                             viewModel.deleteItem(itemToDelete)
-                        }
+
 
                         Snackbar.make(
                             rvItems
@@ -190,8 +220,6 @@ class List : AppCompatActivity() {
                             Snackbar.LENGTH_SHORT // How long to display the message.
                         ).show()
 
-
-                    }
                 }
                 return
             }
@@ -221,7 +249,7 @@ class List : AppCompatActivity() {
             Snackbar.LENGTH_SHORT // How long to display the message.
         ).show()
 
-        hint.setVisibility(View.INVISIBLE)
+
 
     }
 

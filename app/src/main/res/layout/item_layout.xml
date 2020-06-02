@@ -3,17 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark">
 
     <TextView
         android:id="@+id/tvItem"
         android:layout_width="277dp"
         android:layout_height="75dp"
         android:background="@drawable/share_rounded_corner_with_border"
-        android:backgroundTint="#090000"
+        android:backgroundTint="@android:color/white"
         android:gravity="center_horizontal"
         android:text="hi"
-        android:textColor="#F6F2F2"
+        android:textColor="#100F0F"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,34 +22,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="64dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvItem"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/logo_size" />
-
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="156dp"
+        android:layout_marginStart="246dp"
+        android:layout_marginEnd="51dp"
         android:text="Item is ready"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:textColorHighlight="@color/colorPrimary"
         android:textColorLink="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvItem" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvItem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
