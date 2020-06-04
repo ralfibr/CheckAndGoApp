@@ -26,11 +26,11 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Item) {
-            itemView.tvItem.setOnClickListener{
-                Snackbar.make(itemView, "hi", Snackbar.LENGTH_SHORT).show()
-            }
-            itemView.tvItem.text = item.name
 
+            itemView.tvItem.text = item.name
+            itemView.tvItem.setOnClickListener{
+                Snackbar.make(itemView, item.name+"is on progress", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 

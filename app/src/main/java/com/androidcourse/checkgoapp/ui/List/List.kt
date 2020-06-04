@@ -31,6 +31,7 @@ import kotlinx.coroutines.withContext
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import com.androidcourse.checkgoapp.model.ItemFirebase
 import com.androidcourse.checkgoapp.ui.Chat.Chat
 import com.androidcourse.checkgoapp.ui.Profile
 import kotlinx.android.synthetic.main.item_layout.*
@@ -123,28 +124,28 @@ class List : AppCompatActivity() {
         })
 
     }
-//    fun getDataFromFireBase(){
-//        database.addListenerForSingleValueEvent(object: ValueEventListener{
-//            override fun onCancelled(p0: DatabaseError) {
-//
-//
-//            }
-//
-//            override fun onDataChange(p0: DataSnapshot) {
-//                p0.children.forEach {
-////                    val item = it.getValue(ItemFirebase::class.java)
-////
-////                    if (item != null) {
-////                       // tvItem?.text = item?.item
-////                        Log.d("test", item.item)
-////                    }
-////                    return
-//                }
-//            }
-//
-//        })
-//
-//    }
+    fun getDataFromFireBase(){
+        database.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                p0.children.forEach {
+                    val item = it.getValue(ItemFirebase::class.java)
+
+                    if (item != null) {
+                       // tvItem?.text = item?.item
+                        Log.d("test", item.item)
+                    }
+                    return
+                }
+            }
+
+        })
+
+    }
 
     private fun initViews() {
         rvItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
