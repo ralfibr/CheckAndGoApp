@@ -16,8 +16,11 @@ class ChatAdapter(val mCtx: Context, val layoutResId: Int,val  chatList: List<Me
        val layoutInflater: LayoutInflater = LayoutInflater.from(mCtx)
         val view: View = layoutInflater.inflate(layoutResId, null)
         val textViewName = view.findViewById<TextView>(R.id.tvMessageItem1)
+        val texViewUserName = view.findViewById<TextView>(R.id.textViewUserName)
         val item = chatList[position]
         textViewName.text = item.message
+        texViewUserName.text = item.username
+
         return view
     }
 }

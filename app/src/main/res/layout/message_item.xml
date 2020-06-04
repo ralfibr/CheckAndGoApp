@@ -4,10 +4,26 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textViewUserName"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/share_rounded_corner_with_border"
+        android:backgroundTint="#E3E0E0"
+        android:text="TextView"
+        android:textColor="#0E0101"
+        android:textSize="14sp"
+        android:textStyle="italic" />
+
+    <TextView
 
         android:id="@+id/tvMessageItem1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/share_rounded_corner_with_border"
+        android:backgroundTint="@color/colorPrimary"
+        android:gravity="bottom|clip_vertical|fill_horizontal|top|left|center_vertical|fill_vertical|end"
+        android:text="   TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="TextView" />
+        android:textColor="#EFEAEA" />
+
 </LinearLayout>
