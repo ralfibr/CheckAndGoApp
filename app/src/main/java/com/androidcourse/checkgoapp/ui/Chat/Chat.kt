@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_chat.*
+import java.util.*
 
 /**
  * @author Raeef Ibrahim
@@ -52,7 +53,7 @@ class Chat : AppCompatActivity() {
             true
 
         }
-        sendBtn.setOnClickListener { wirteMassageToFirebase(massage!!.text.toString().trim()) }
+        sendBtn.setOnClickListener { wirteMassageToFirebase(massage!!.text.toString().trim(),Calendar.getInstance().time.toString()) }
         deleteBtn2.setOnClickListener(View.OnClickListener { deleteMessges() })
     }
 
@@ -64,12 +65,12 @@ class Chat : AppCompatActivity() {
         startActivity(Intent(this, Profile::class.java))
     }
 
-    fun wirteMassageToFirebase(message: String) {
+    fun wirteMassageToFirebase(message: String,date:String) {
 
 //        database.child(auth?.currentUser?.uid.toString() + "/" )
 
         val messageId = database.push().key
-        val messageO = Message(messageId.toString(), message, auth?.currentUser?.email.toString().substring(0,5))
+        val messageO = Message(messageId.toString(), message, auth?.currentUser?.email.toString().substring(0,5),date)
         massage!!.text = null
         database.child(messageId.toString()).setValue(messageO)
         getMessages()
