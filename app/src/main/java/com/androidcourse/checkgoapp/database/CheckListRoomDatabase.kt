@@ -5,6 +5,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.androidcourse.checkgoapp.model.Item
 
+/**
+ * @author Raeef Ibrahim
+ * Check&Go App
+ *
+ */
 @Database(entities = [Item::class], version = 1, exportSchema = false)
 abstract class CheckListRoomDatabase : RoomDatabase() {
 

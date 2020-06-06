@@ -1,5 +1,4 @@
 package com.androidcourse.checkgoapp.auth
-
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -28,7 +27,9 @@ import com.google.firebase.ktx.Firebase
 
 /**
  * @author Raeef Ibrahim
- */
+ * Check&Go App
+ *
+*/
 class SignIn : AppCompatActivity() {
 
     private var inputEmail: EditText? = null

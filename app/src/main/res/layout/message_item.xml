@@ -8,11 +8,11 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:background="@drawable/share_rounded_corner_with_border"
-        android:backgroundTint="#E3E0E0"
+        android:backgroundTint="#F8F4F4"
         android:text="TextView"
         android:textColor="#0E0101"
         android:textSize="14sp"
-        android:textStyle="italic" />
+        android:textStyle="normal|bold|italic" />
 
     <TextView
 

@@ -3,26 +3,22 @@ package com.androidcourse.checkgoapp.ui.Chat
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
 import com.androidcourse.checkgoapp.R
-import com.androidcourse.checkgoapp.model.Item
 import com.androidcourse.checkgoapp.model.Message
-import com.androidcourse.checkgoapp.model.RandomEnum
-import com.androidcourse.checkgoapp.model.User
 import com.androidcourse.checkgoapp.ui.List.List
 import com.androidcourse.checkgoapp.ui.Profile
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.profile.*
-import kotlin.random.Random
 
+/**
+ * @author Raeef Ibrahim
+ * Check&Go App
+ *
+ */
 class Chat : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private var auth: FirebaseAuth? = null

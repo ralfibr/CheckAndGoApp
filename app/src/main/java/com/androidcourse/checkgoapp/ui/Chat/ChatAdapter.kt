@@ -9,6 +9,11 @@ import android.widget.TextView
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.Message
 
+/**
+ * @author Raeef Ibrahim
+ * Check&Go App
+ *
+ */
 class ChatAdapter(val mCtx: Context, val layoutResId: Int,val  chatList: List<Message>):
     ArrayAdapter<Message> (mCtx,layoutResId,chatList) {
 

@@ -4,6 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.androidcourse.checkgoapp.model.Item
 
+/**
+ * @author Raeef Ibrahim
+ * Check&Go App
+ *
+ */
 class ItemRepository(context: Context) {
 
     private val itemDao: ItemDao

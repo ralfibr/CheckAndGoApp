@@ -10,6 +10,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.collections.List
 
+/**
+ * @author Raeef Ibrahim
+ * Check&Go App
+ *
+ */
 class ListActivityModel(application: Application) : AndroidViewModel(application) {
 
     private val ioScope = CoroutineScope(Dispatchers.IO)

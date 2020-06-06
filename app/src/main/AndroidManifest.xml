@@ -11,11 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="ExtraText">
-        <activity android:name=".ui.Chat.Chat"></activity>
+        <activity android:name=".ui.Chat.Chat"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.Profile" />
         <activity android:name=".auth.SignUp" />
         <activity android:name=".auth.SignIn" />
-        <activity android:name=".ui.List.List" />
+        <activity android:name=".ui.List.List"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity android:name=".ui.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

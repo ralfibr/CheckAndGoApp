@@ -3,6 +3,11 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.androidcourse.checkgoapp.model.Item
 
+/**
+ * @author Raeef Ibrahim
+ * Check&Go App
+ *
+ */
 @Dao
 interface ItemDao {
 

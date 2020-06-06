@@ -23,6 +23,11 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 
+/**
+ * @author Raeef Ibrahim
+ * Check&Go App
+ *
+ */
 
 class SignUp : AppCompatActivity() {
     private var inputEmail: EditText? = null
