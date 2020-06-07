@@ -1,5 +1,4 @@
 package com.androidcourse.checkgoapp.ui
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,32 +16,28 @@ import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.profile.*
 
 class Profile : AppCompatActivity() {
-    private var auth : FirebaseAuth?= null
+    private var auth: FirebaseAuth? = null
     private var signOut: ImageButton? = null
     private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile)
-
-        //tvUsername?.text = getString(R.string.uName,User.username.toString())
         database = FirebaseDatabase.getInstance().getReference("/users")
         signOut = findViewById(R.id.signOut) as ImageButton
         getDataFromFireBase()
         signOut!!.setOnClickListener(View.OnClickListener { signOut() })
         val navigationView = findViewById(R.id.bottom_nav) as BottomNavigationView
         auth = FirebaseAuth.getInstance()
-        email_Textview.text = getString(R.string.username,getProfile())
+        email_Textview.text = getString(R.string.username, getProfile())
         navigationView.selectedItemId = R.id.navigation_profile
         navigationView.setOnNavigationItemSelectedListener() { item ->
 
             when (item.itemId) {
-                R.id.navigation_profile ->
-                {
+                R.id.navigation_profile -> {
 
-                    Toast.makeText(application,"clickked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(application, "clickked", Toast.LENGTH_SHORT).show()
                 }
-                R.id.navigation_list ->
-                {
+                R.id.navigation_list -> {
                     navigetToList()
                 }
                 R.id.navigation_chat ->
@@ -54,26 +49,27 @@ class Profile : AppCompatActivity() {
 
 
     }
+
+    //Sign out with auth
     fun signOut() {
         auth?.signOut()
-        Toast.makeText(application,"You are logged out", Toast.LENGTH_SHORT).show()
+        Toast.makeText(application, "You are logged out", Toast.LENGTH_SHORT).show()
         startActivity(Intent(this, SignIn::class.java))
     }
-    fun getDataFromFireBase(){
-        database.addListenerForSingleValueEvent(object: ValueEventListener {
+
+    // get user info
+    fun getDataFromFireBase() {
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-
-
+                Toast.makeText(application, "Not Found", Toast.LENGTH_SHORT).show()
             }
 
-           // @SuppressLint("LongLogTag")
             override fun onDataChange(p0: DataSnapshot) {
                 p0.children.forEach {
                     val users = it.getValue(User::class.java)
 
                     if (users != null) {
-                        tvUsername?.text = getString(R.string.uName,users.username.toString())
-                       // Log.d("jfnrjkrbnfhjbrhjfbih3bghjrbghjrb3jhgbhjr3bgr34jgbhj", users.username.toString())
+                        tvUsername?.text = getString(R.string.uName, users.username.toString())
                     }
                     return
                 }
@@ -82,13 +78,16 @@ class Profile : AppCompatActivity() {
         })
 
     }
-fun navigetToList() {
-    startActivity(Intent(this, List::class.java))
-}
+// navigate to list
+    fun navigetToList() {
+        startActivity(Intent(this, List::class.java))
+    }
+// get username from firebase
     fun getProfile(): String {
-return auth?.currentUser?.email.toString()
+        return auth?.currentUser?.email.toString()
 
     }
+// navigate to chat
     fun navigateToChat() {
         startActivity(Intent(this, Chat::class.java))
     }

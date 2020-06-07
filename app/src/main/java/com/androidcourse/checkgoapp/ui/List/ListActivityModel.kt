@@ -13,6 +13,7 @@ import kotlin.collections.List
 /**
  * @author Raeef Ibrahim
  * Check&Go App
+ * View Model
  *
  */
 class ListActivityModel(application: Application) : AndroidViewModel(application) {
@@ -30,14 +31,15 @@ class ListActivityModel(application: Application) : AndroidViewModel(application
 
     fun deleteItem(item: Item) {
         ioScope.launch {
-           itemRepository.deleteItem(item)
+            itemRepository.deleteItem(item)
         }
     }
-fun deleteAll() {
-    ioScope.launch {
-        itemRepository.deleteAllItems()
+
+    fun deleteAll() {
+        ioScope.launch {
+            itemRepository.deleteAllItems()
+        }
     }
-}
 }
 
 

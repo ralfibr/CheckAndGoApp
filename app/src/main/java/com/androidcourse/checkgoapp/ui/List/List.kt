@@ -26,13 +26,11 @@ import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.androidcourse.checkgoapp.ui.Chat.Chat
 import com.androidcourse.checkgoapp.ui.Profile
-
 
 /**
  * @author Raeef Ibrahim
@@ -53,9 +51,8 @@ class List : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
-
-        database = Firebase.database.reference
         supportActionBar?.title = "Your checklist"
+        database = Firebase.database.reference
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_info)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         checkbox1 = findViewById(R.id.checkBox)
@@ -66,24 +63,20 @@ class List : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().getReference("/Items")
         inputItem = findViewById(R.id.itemEdit)
         deleteBtn.setOnClickListener(View.OnClickListener {
-
-
             val dialogBuilder = AlertDialog.Builder(this)
-
             // set message of alert dialog
             dialogBuilder.setMessage("Are yo sure to delete your checklist ?")
                 // if the dialog is cancelable
                 .setCancelable(false)
                 // positive button text and action
-                .setPositiveButton("Yes", DialogInterface.OnClickListener {
-                        dialog, id ->
+                .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
                     deleteCheckList()
                     finish()
                     navigateBack()
                 })
                 // negative button text and action
-                .setNegativeButton("Cancel", DialogInterface.OnClickListener {
-                        dialog, id -> dialog.cancel()
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
                 })
 
             // create dialog box
@@ -91,7 +84,10 @@ class List : AppCompatActivity() {
             // set title for alert dialog box
             alert.setTitle("Delete all items")
             // show alert dialog
-            alert.show()})
+            alert.show()
+        })
+
+        //navigatin tab bar
         val navigationView = findViewById(R.id.bottom_nav) as BottomNavigationView
         navigationView.setOnNavigationItemSelectedListener() { item ->
             when (item.itemId) {
@@ -139,15 +135,18 @@ class List : AppCompatActivity() {
     fun navigateToProfile() {
         startActivity(Intent(this, Profile::class.java))
     }
+
     fun navigateBack() {
         startActivity(Intent(this, List::class.java))
     }
+
     fun navigateToChat() {
         startActivity(Intent(this, Chat::class.java))
     }
+
+    // Add item on the list
     private fun addItem() {
         val itemName = inputItem!!.text.toString().trim()
-        // hint.setVisibility(View.VISIBLE)
         if (itemName.isEmpty()) {
             Toast.makeText(
                 this, "Item cannot be empty",
@@ -155,15 +154,11 @@ class List : AppCompatActivity() {
             ).show()
 
             return
-
         }
-
         mainScope.launch {
             Log.d("MainActivity", itemName)
             val item = Item(name = itemName)
-            withContext(Dispatchers.IO) {
-                viewModel.insertItem(item)
-            }
+            viewModel.insertItem(item)
             writeNewItemToFirebase(inputItem!!.text.toString().trim())
             inputItem!!.setText("")
         }
@@ -194,17 +189,17 @@ class List : AppCompatActivity() {
                     val position = viewHolder.adapterPosition
                     val itemToDelete = checkList[position]
 
-                            database.child(auth?.currentUser?.uid.toString())
-                                .child(itemToDelete.name).removeValue()
-                            viewModel.deleteItem(itemToDelete)
+                    database.child(auth?.currentUser?.uid.toString())
+                        .child(itemToDelete.name).removeValue()
+                    viewModel.deleteItem(itemToDelete)
 
 
-                        Snackbar.make(
-                            rvItems
-                            , // Parent view
-                            itemToDelete.name + " is ready and is deleted ", // Message to show
-                            Snackbar.LENGTH_SHORT // How long to display the message.
-                        ).show()
+                    Snackbar.make(
+                        rvItems
+                        , // Parent view
+                        itemToDelete.name + " is ready and is deleted ", // Message to show
+                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    ).show()
 
                 }
                 return
@@ -213,18 +208,7 @@ class List : AppCompatActivity() {
         return ItemTouchHelper(callback)
     }
 
-    //
-//    private fun getCheckListFromDatabase() {
-//        mainScope.launch {
-//            // call product repository
-//            val chcekList = withContext(Dispatchers.IO) {
-//                itemRepository.getAllItems()
-//            }
-//            checkList.clear()
-//            checkList.addAll(chcekList)
-//            itemAdapter.notifyDataSetChanged()
-//        }
-//    }
+    /// delete all the list
     private fun deleteCheckList() {
         database.child(auth?.currentUser?.uid.toString() + "/").removeValue()
         viewModel.deleteAll()
@@ -234,11 +218,9 @@ class List : AppCompatActivity() {
             "All items is deleted", // Message to show
             Snackbar.LENGTH_SHORT // How long to display the message.
         ).show()
-
-
-
     }
 
+    // Add item ro firebase
     private fun writeNewItemToFirebase(name: String) {
         database.child(auth?.currentUser?.uid.toString() + "/" + name).setValue(name)
 

@@ -1,5 +1,4 @@
 package com.androidcourse.checkgoapp.ui.Chat
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,7 +22,6 @@ import java.util.*
 class Chat : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private var auth: FirebaseAuth? = null
-    private var id: Int? = null
     private lateinit var listview: ListView
     private lateinit var chatList: MutableList<Message>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +32,10 @@ class Chat : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().getReference("/Chats")
         supportActionBar?.title = "Chat"
         listview = findViewById(R.id.chatsListView)
-        getMessages()
+
+        getMessages()//get all massages
+
+        // TabBar
         val navigationView = findViewById(R.id.bottom_nav) as BottomNavigationView
         navigationView.selectedItemId = R.id.navigation_chat
         navigationView.setOnNavigationItemSelectedListener() { item ->
@@ -53,7 +54,12 @@ class Chat : AppCompatActivity() {
             true
 
         }
-        sendBtn.setOnClickListener { wirteMassageToFirebase(massage!!.text.toString().trim(),Calendar.getInstance().time.toString()) }
+        sendBtn.setOnClickListener {
+            wirteMassageToFirebase(
+                massage!!.text.toString().trim(),
+                Calendar.getInstance().time.toString()
+            )
+        }
         deleteBtn2.setOnClickListener(View.OnClickListener { deleteMessges() })
     }
 
@@ -65,12 +71,16 @@ class Chat : AppCompatActivity() {
         startActivity(Intent(this, Profile::class.java))
     }
 
-    fun wirteMassageToFirebase(message: String,date:String) {
-
-//        database.child(auth?.currentUser?.uid.toString() + "/" )
+    //Send massage and saze to Firebase
+    fun wirteMassageToFirebase(message: String, date: String) {
 
         val messageId = database.push().key
-        val messageO = Message(messageId.toString(), message, auth?.currentUser?.email.toString().substring(0,5),date)
+        val messageO = Message(
+            messageId.toString(),
+            message,
+            auth?.currentUser?.email.toString().substring(0, 5),
+            date
+        )
         massage!!.text = null
         database.child(messageId.toString()).setValue(messageO)
         getMessages()
@@ -78,12 +88,14 @@ class Chat : AppCompatActivity() {
 
     }
 
+    // Delete aal mesagess
     fun deleteMessges() {
         database.removeValue()
         getMessages()
         startActivity(Intent(this, Chat::class.java))
     }
 
+    // Get all messages
     fun getMessages() {
         database.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -109,8 +121,6 @@ class Chat : AppCompatActivity() {
             }
 
         })
-
-
 
 
     }
