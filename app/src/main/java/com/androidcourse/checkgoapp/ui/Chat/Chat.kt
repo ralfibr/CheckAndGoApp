@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ListView
+import android.widget.Toast
 import com.androidcourse.checkgoapp.R
 import com.androidcourse.checkgoapp.model.Message
 import com.androidcourse.checkgoapp.ui.List.List
@@ -24,6 +25,7 @@ class Chat : AppCompatActivity() {
     private var auth: FirebaseAuth? = null
     private lateinit var listview: ListView
     private lateinit var chatList: MutableList<Message>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -49,6 +51,7 @@ class Chat : AppCompatActivity() {
                     navigetToList()
                 }
                 R.id.navigation_chat -> {
+
                 }
             }
             true
@@ -93,6 +96,8 @@ class Chat : AppCompatActivity() {
         database.removeValue()
         getMessages()
         startActivity(Intent(this, Chat::class.java))
+        Toast.makeText(applicationContext, "All chat messages are deleted!", Toast.LENGTH_SHORT)
+            .show()
     }
 
     // Get all messages

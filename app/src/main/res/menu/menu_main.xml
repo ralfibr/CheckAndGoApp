@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.androidcourse.checkgoapp.auth.SignIn" >
     <item
-        android:orderInCategory="100"
-        android:title="Item" />
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="101"
-        app:showAsAction="never" />
+        android:orderInCategory="103"
+        android:title="Delete Chat" />
 </menu>

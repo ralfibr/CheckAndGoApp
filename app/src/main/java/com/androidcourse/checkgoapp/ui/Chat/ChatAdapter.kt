@@ -13,11 +13,11 @@ import com.androidcourse.checkgoapp.model.Message
 /**
  * @author Raeef Ibrahim
  * Check&Go App
+ * Chat Adapter
  *
  */
 class ChatAdapter(val mCtx: Context, val layoutResId: Int, val chatList: List<Message>) :
     ArrayAdapter<Message>(mCtx, layoutResId, chatList) {
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater: LayoutInflater = LayoutInflater.from(mCtx)
         val view: View = layoutInflater.inflate(layoutResId, null)
@@ -26,6 +26,7 @@ class ChatAdapter(val mCtx: Context, val layoutResId: Int, val chatList: List<Me
         val timetv = view.findViewById<TextView>(R.id.tvtime)
         val item = chatList[position]
         textViewName.text = item.message
+
         texViewUserName.text = item.username
         timetv.text = item.date
         return view

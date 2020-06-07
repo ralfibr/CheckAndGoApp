@@ -3,6 +3,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
@@ -104,15 +105,6 @@ class List : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.drawable.ic_action_delete -> {
-                deleteCheckList()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
     private fun observeViewModel() {
         viewModel.items.observe(this, Observer() { items ->

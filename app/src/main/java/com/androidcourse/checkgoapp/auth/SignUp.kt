@@ -88,7 +88,7 @@ class SignUp : AppCompatActivity() {
             Log.d("MainActivity", "Email is: " + email)
             Log.d("MainActivity", "Password: $password")
 
-            onSignUp(email, password)
+            onSignUp(email, password,username)
 
         })
 
@@ -97,12 +97,13 @@ class SignUp : AppCompatActivity() {
     // Add user ro Firebase Realtime database
     private fun writeNewUser(name: String, email: String?) {
         val user = User(name, email)
-        database.child(auth?.currentUser?.uid.toString() + "/").setValue(user)
-
+        val userId = database.push().key
+        database.child(userId.toString()).setValue(user)
     }
 
     // Firebase Authentication to create a user with email and password
-    private fun onSignUp(email: String, password: String) {
+    private fun onSignUp(email: String, password: String, name: String) {
+
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
@@ -112,7 +113,7 @@ class SignUp : AppCompatActivity() {
                 ).show()
                 progressBar!!.setVisibility(View.VISIBLE)
                 startActivity(Intent(this, SignIn::class.java))
-                writeNewUser(email, email)
+                writeNewUser(name, email)
                 finish()
                 // else if successful
                 Log.d("Main", "Successfully created user with uid: ")
